@@ -17,7 +17,7 @@ The project is using the SQLAlchemy Python library to generate the database with
 ### How to start this project:
 - If you are working locally, type the following command in your terminal:
 
-`git clone https://github.com/ismabk/Modeling-StarWars-Python1`
+`git clone https://github.com/ismabk/Modeling-StarWars-Python`
 
 - If you use Gitpod you can clone the boilerplate by running the following command in your terminal:
 
