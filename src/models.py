@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -8,26 +8,30 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+class User(Base):
+    _tablename_ = 'users'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    username = Column(String(100), nullable=False)
+    email = Column(String(50), nullable=False)
+    password = Column(String(30), nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Planet(Base):
+    _tablename_ = 'planets'
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    planet_name = Column(String(100), nullable=False)
 
-    def to_dict(self):
-        return {}
+class Character(Base):
+    _tablename_ = 'characters'
+    id = Column(Integer, primary_key=True)
+    char_name = Column(String(100), nullable=False)
+    side = Column(Boolean, nullable=True)
+
+class Favorite(Base):
+    _tablename_ = 'favorites'
+    id = Column(Integer, primary_key=True)
+    user = Column(Integer, ForeignKey('users.id'))
+    fav_planet = Column(Integer, ForeignKey('planets.id'))
+    fav_char = Column(Integer, ForeignKey('characters.id'))
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
